@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Mono:wght@200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Poppins", sans-serif;
+}
+header.header {
+  font-family: "Roboto Mono", monospace;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 3px solid #63a4ff;
+}
+header.header .left {
+  display: flex;
+  align-items: center;
+}
+header.header .left img {
+  width: 40px;
+  height: 40px;
+  margin-right: 0.75rem;
+}
+header.header .left span {
+  color: #2e3553;
+  font-weight: bold;
+  font-size: 17px;
+}
+main {
+  display: flex;
+  /*for debug*/
+  height: calc(100vh - 67px);
+}
+main .categories {
+  padding: 1.5rem 0;
+  width: 19%;
+  background-color: #63a4ff;
+  background-image: linear-gradient(to left, #63a4ff 0%, #83eaf1 74%);
+}
+main .categories h3 {
+  color: #2e3553;
+  margin-bottom: 1rem;
+  margin-left: 2.5rem;
+}
+main .categories ul li {
+  list-style-type: none;
+  padding: 1rem 0;
+  padding-left: 2.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  position: relative;
+}
+
+main .categories ul li .slide {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left, #63a4ff67 0%, #63a4ff 74%);
+  transition: 1s;
+}
+main .categories ul li:hover .slide {
+  transition: 1s;
+  left: 0;
+}
+main .categories ul li a {
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #000;
+  transition: color 0.3s ease-in-out;
+}
+main .categories ul li:hover a {
+  color: #fff;
+}
+main .notes {
+  width: 81%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  background: #ecfaf5;
+}
+main .notes h1 {
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+}
+main .notes .notes-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+main .notes .notes-content h4 {
+  margin-top: 1.25rem;
+  letter-spacing: 1px;
+  color: #000000c7;
+}
+main .notes .notes-content .notes-logo {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main .notes .notes-content .notes-logo img {
+  width: 100px;
+}
+.add {
+  position: fixed;
+  bottom: 1.75rem;
+  right: 2rem;
+  background-image: linear-gradient(to bottom, #63a4ff 0%, #83eaf1 74%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out;
+}
+.add:hover {
+  transform: scale(1.2);
+}
+.add img {
+  width: 25px;
+  height: 25px;
+}
