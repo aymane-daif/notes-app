@@ -14,58 +14,47 @@
         <span>Notes App</span>
       </div>
     </header>
-    <main>
+    <main class="full-main">
       <aside class="categories">
         <h3>Categories</h3>
-        <ul>
-          <li>
-            <a href="#">Front End</a>
-            <div class="slide"></div>
-          </li>
-          <li>
-            <a href="#">Back End</a>
-            <div class="slide"></div>
-          </li>
-
-          <li>
-            <a href="#">Dev Mobile</a>
-            <div class="slide"></div>
-          </li>
-          <li>
-            <a href="#">Terminal</a>
-            <div class="slide"></div>
-          </li>
-          <li>
-            <a href="#">Linux</a>
-            <div class="slide"></div>
-          </li>
-          <li>
-            <a href="#">Shell</a>
-            <div class="slide"></div>
-          </li>
-          <li>
-            <a href="#">SQL</a>
-            <div class="slide"></div>
-          </li>
-          <li>
-            <a href="#">NoSql</a>
-            <div class="slide"></div>
-          </li>
-        </ul>
+        <ul></ul>
       </aside>
-      <section class="notes">
+      <section class="notes all-notes">
         <h1>Notes</h1>
         <div class="notes-content">
-          <div class="notes-logo">
+          <!-- <div class="notes-logo">
             <img src="./images/pencil.svg" alt="icon" />
           </div>
-          <h4>You don't have any notes yet.</h4>
+          <h4>You don't have any notes yet.</h4> -->
         </div>
+      </section>
+      <section class="markdown">
+        <div class="markdown-header">
+          <h2>Edit Note</h2>
+          <button id="preview">Previeuw the body</button>
+        </div>
+        <form id="markdown">
+          <div class="markdown-title">
+            <label for="title">Title: </label>
+            <input type="text" name="title" id="title" />
+          </div>
+          <div class="markdown-category">
+            <label for="category">Category: </label>
+            <input type="text" name="category" id="category" />
+          </div>
+          <div class="markdown-body">
+            <label for="body">Body: </label>
+            <textarea name="body" id="body"></textarea>
+          </div>
+        </form>
+        <button id="save" class="save">Save Note</button>
       </section>
     </main>
     <div class="add">
       <img src="./images/add.svg" alt="add-icon" />
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
