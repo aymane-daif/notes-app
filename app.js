@@ -7,6 +7,7 @@ const previewBtn = document.getElementById("preview");
 const saveBtn = document.getElementById("save");
 const notesContent = document.querySelector(".notes.all-notes .notes-content");
 const categoriesContent = document.querySelector(".full-main .categories ul");
+const countNotes = document.querySelector(".all-notes h1");
 
 let bodyMarked;
 let titleMarked;
@@ -48,7 +49,7 @@ categoriesContent.addEventListener("click", (e) => {
       e.target.parentElement.classList.contains("delete")
     ) {
       let id = Number(e.target.getAttribute("data-id"));
-      console.log(e.target);
+
       notes = notes.filter((note) => {
         if (note.id !== id) return true;
         else return false;
@@ -59,12 +60,17 @@ categoriesContent.addEventListener("click", (e) => {
 });
 
 function showNotes(categ) {
+  let count = 0;
+
   notesContent.innerHTML = "";
 
   let selectedNotes = notes.filter((note) => {
-    if (note.category === categ) return true;
-    else return false;
+    if (note.category === categ) {
+      count++;
+      return true;
+    } else return false;
   });
+  countNotes.innerHTML = `Notes (${count})`;
   selectedNotes.forEach((note) => {
     let val = "";
     if (note.body.length > 20) {
@@ -103,6 +109,24 @@ function saveNote() {
     categories.push(capitalizedCateg);
   }
   showCategories();
+  showNotes(capitalizedCateg);
+  Array.from(categoriesContent.children, (li) => {
+    if (li.innerText === capitalizedCateg) li.classList.add("selected");
+  });
+  notesContent.addEventListener("click", (e) => {
+    if (
+      e.target.classList.contains("delete") ||
+      e.target.parentElement.classList.contains("delete")
+    ) {
+      let id = Number(e.target.getAttribute("data-id"));
+
+      notes = notes.filter((note) => {
+        if (note.id !== id) return true;
+        else return false;
+      });
+      showNotes(capitalizedCateg);
+    }
+  });
 }
 
 function showCategories() {
