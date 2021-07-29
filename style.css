@@ -8,6 +8,22 @@
 body {
   font-family: "Poppins", sans-serif;
 }
+button {
+  background-image: linear-gradient(to bottom, #63a4ff 0%, #83eaf1 74%);
+  border: none;
+  color: #2e3553;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 12px;
+  word-spacing: 5px;
+  transition: transform 0.3s ease-in-out;
+  border-radius: 5px;
+}
+button:hover {
+  transform: scale(0.98);
+}
 .add {
   position: fixed;
   bottom: 1.75rem;
@@ -50,8 +66,7 @@ header.header .left span {
 }
 main {
   display: flex;
-  /*for debug*/
-  height: calc(100vh - 67px);
+  min-height: calc(100vh - 67px);
 }
 main .categories {
   padding: 1.5rem 0;
@@ -139,9 +154,9 @@ main .notes .notes-content .notes-logo img {
   width: 100px;
 }
 /**/
-main.full-main {
+/* main.full-main {
   height: 100%;
-}
+} */
 main .notes.all-notes {
   width: 32%;
   background-color: #ecfaf5;
@@ -196,6 +211,7 @@ main .notes.all-notes .notes-content .note .right .delete img {
 }
 
 main .markdown {
+  display: none;
   padding: 1rem;
   width: 50%;
   border-left: 1px solid #63a4ff;

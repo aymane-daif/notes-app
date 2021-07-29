@@ -5,15 +5,26 @@ let categoryText = document.getElementById("category");
 let bodyText = document.getElementById("body");
 const previewBtn = document.getElementById("preview");
 const saveBtn = document.getElementById("save");
-const notesContent = document.querySelector(".notes.all-notes .notes-content");
+let notesContent;
 const categoriesContent = document.querySelector(".full-main .categories ul");
-const countNotes = document.querySelector(".all-notes h1");
+let countNotes;
+const addBtn = document.querySelector(".add");
+const notesSection = document.querySelector(".notes");
+const markdownSection = document.querySelector(".markdown");
 
 let bodyMarked;
 let titleMarked;
 let categoryMarked;
 let notes = [];
 let categories = [];
+
+addBtn.addEventListener("click", (e) => {
+  notesSection.classList.add("all-notes");
+  notesContent = document.querySelector(".notes.all-notes .notes-content");
+  countNotes = document.querySelector(".all-notes h1");
+  markdownSection.style.display = "block";
+  notesContent.innerHTML = "";
+});
 
 saveBtn.addEventListener("click", () => {
   saveNote();
