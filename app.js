@@ -66,6 +66,15 @@ categoriesContent.addEventListener("click", (e) => {
         else return false;
       });
       showNotes(selectedCat);
+    } else {
+      let dataId = Number(e.target.getAttribute("data-id"));
+      let specificNote = notes.filter((note) => {
+        if (note.id === dataId) return true;
+      })[0];
+      bodyText.value = specificNote.body;
+      titleText.value = specificNote.title;
+      categoryText.value = specificNote.category;
+      bodyText.setAttribute("data-id", String(dataId));
     }
   });
 });
@@ -89,13 +98,13 @@ function showNotes(categ) {
       val += "...";
     }
     notesContent.innerHTML += `
-    <div class="note">
-    <div class="left">
-      <h3 class="title">${note.title}</h3>
-      <p class="body">
+    <div class="note" data-id=${note.id} >
+    <div class="left"  data-id=${note.id} >
+      <h3 class="title" data-id=${note.id} >${note.title}</h3>
+      <p class="body" data-id=${note.id} >
       ${val}
       </p>
-      <span class="time">1min ago</span>
+      <span class="time" data-id=${note.id} >1min ago</span>
     </div>
     <div class="right">
       <div class="delete" data-id=${note.id} >
@@ -109,12 +118,24 @@ function showNotes(categ) {
 
 function saveNote() {
   let capitalizedCateg = capitalize(categoryText.value.toLowerCase()).trim();
-  notes.push({
-    id: Math.floor(Math.random() * 10000),
-    title: titleText.value,
-    category: capitalizedCateg,
-    body: bodyText.value,
-  });
+  if (bodyText.getAttribute("data-id")) {
+    let dataId = Number(bodyText.getAttribute("data-id"));
+    notes = notes.map((note) => {
+      if (note.id === dataId) {
+        note.title = titleText.value;
+        note.category = capitalizedCateg;
+        note.body = bodyText.value;
+      }
+      return note;
+    });
+  } else {
+    notes.push({
+      id: Math.floor(Math.random() * 10000),
+      title: titleText.value,
+      category: capitalizedCateg,
+      body: bodyText.value,
+    });
+  }
 
   if (!categories.includes(capitalizedCateg)) {
     categories.push(capitalizedCateg);
@@ -136,6 +157,15 @@ function saveNote() {
         else return false;
       });
       showNotes(capitalizedCateg);
+    } else {
+      let dataId = Number(e.target.getAttribute("data-id"));
+      let specificNote = notes.filter((note) => {
+        if (note.id === dataId) return true;
+      })[0];
+      bodyText.value = specificNote.body;
+      titleText.value = specificNote.title;
+      categoryText.value = specificNote.category;
+      bodyText.setAttribute("data-id", String(dataId));
     }
   });
 }
