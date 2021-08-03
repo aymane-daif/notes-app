@@ -30,6 +30,51 @@ saveBtn.addEventListener("click", () => {
   saveNote();
 });
 
+previewBtn.addEventListener("click", (e) => {
+  if (e.target.textContent === "Previeuw the body") {
+    bodyMarked = bodyText.value;
+    titleMarked = titleText.value;
+    categoryMarked = categoryText.value;
+    markdownForm.innerHTML = `
+    <div class="preview">
+      <div>
+        <span class="preview-text">Title: </span>
+        <span>${titleMarked}</span>
+      </div>
+      <div>
+        <span class="preview-text">Category: </span>
+        <span>${categoryMarked}</span> 
+      </div>
+      <div class="preview-body">
+        <span class="preview-text">Body: </span>
+        <div>${marked(bodyMarked)}</div> 
+      </div>
+      
+    </div>
+    `;
+    e.target.textContent = "Edit your note";
+  } else if (e.target.textContent === "Edit your note") {
+    markdownForm.innerHTML = `
+    <div class="markdown-title">
+            <label for="title">Title: </label>
+            <input type="text" name="title" id="title" value=${titleMarked} />
+          </div>
+          <div class="markdown-category">
+            <label for="category">Category: </label>
+            <input type="text" name="category" id="category" value=${categoryMarked} />
+          </div>
+          <div class="markdown-body">
+            <label for="body">Body: </label>
+            <textarea name="body" id="body">${bodyMarked}</textarea>
+          </div>
+    `;
+    titleText = document.getElementById("title");
+    categoryText = document.getElementById("category");
+    bodyText = document.getElementById("body");
+    e.target.textContent = "Previeuw the body";
+  }
+});
+
 categoriesContent.addEventListener("click", (e) => {
   let selectedCat;
   Array.from(categoriesContent.children, (li) => {
@@ -55,27 +100,7 @@ categoriesContent.addEventListener("click", (e) => {
   showNotes(selectedCat);
 
   notesContent.addEventListener("click", (e) => {
-    if (
-      e.target.classList.contains("delete") ||
-      e.target.parentElement.classList.contains("delete")
-    ) {
-      let id = Number(e.target.getAttribute("data-id"));
-
-      notes = notes.filter((note) => {
-        if (note.id !== id) return true;
-        else return false;
-      });
-      showNotes(selectedCat);
-    } else {
-      let dataId = Number(e.target.getAttribute("data-id"));
-      let specificNote = notes.filter((note) => {
-        if (note.id === dataId) return true;
-      })[0];
-      bodyText.value = specificNote.body;
-      titleText.value = specificNote.title;
-      categoryText.value = specificNote.category;
-      bodyText.setAttribute("data-id", String(dataId));
-    }
+    notesContentHandler(e, selectedCat);
   });
 });
 
@@ -146,28 +171,32 @@ function saveNote() {
     if (li.innerText === capitalizedCateg) li.classList.add("selected");
   });
   notesContent.addEventListener("click", (e) => {
-    if (
-      e.target.classList.contains("delete") ||
-      e.target.parentElement.classList.contains("delete")
-    ) {
-      let id = Number(e.target.getAttribute("data-id"));
-
-      notes = notes.filter((note) => {
-        if (note.id !== id) return true;
-        else return false;
-      });
-      showNotes(capitalizedCateg);
-    } else {
-      let dataId = Number(e.target.getAttribute("data-id"));
-      let specificNote = notes.filter((note) => {
-        if (note.id === dataId) return true;
-      })[0];
-      bodyText.value = specificNote.body;
-      titleText.value = specificNote.title;
-      categoryText.value = specificNote.category;
-      bodyText.setAttribute("data-id", String(dataId));
-    }
+    notesContentHandler(e, capitalizedCateg);
   });
+}
+
+function notesContentHandler(e, cat) {
+  if (
+    e.target.classList.contains("delete") ||
+    e.target.parentElement.classList.contains("delete")
+  ) {
+    let id = Number(e.target.getAttribute("data-id"));
+
+    notes = notes.filter((note) => {
+      if (note.id !== id) return true;
+      else return false;
+    });
+    showNotes(cat);
+  } else {
+    let dataId = Number(e.target.getAttribute("data-id"));
+    let specificNote = notes.filter((note) => {
+      if (note.id === dataId) return true;
+    })[0];
+    bodyText.value = specificNote.body;
+    titleText.value = specificNote.title;
+    categoryText.value = specificNote.category;
+    bodyText.setAttribute("data-id", String(dataId));
+  }
 }
 
 function showCategories() {
@@ -185,48 +214,3 @@ function showCategories() {
 function capitalize(msg) {
   return msg.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()));
 }
-
-previewBtn.addEventListener("click", (e) => {
-  if (e.target.textContent === "Previeuw the body") {
-    bodyMarked = bodyText.value;
-    titleMarked = titleText.value;
-    categoryMarked = categoryText.value;
-    markdownForm.innerHTML = `
-    <div class="preview">
-      <div>
-        <span class="preview-text">Title: </span>
-        <span>${titleMarked}</span>
-      </div>
-      <div>
-        <span class="preview-text">Category: </span>
-        <span>${categoryMarked}</span> 
-      </div>
-      <div class="preview-body">
-        <span class="preview-text">Body: </span>
-        <div>${marked(bodyMarked)}</div> 
-      </div>
-      
-    </div>
-    `;
-    e.target.textContent = "Edit your note";
-  } else if (e.target.textContent === "Edit your note") {
-    markdownForm.innerHTML = `
-    <div class="markdown-title">
-            <label for="title">Title: </label>
-            <input type="text" name="title" id="title" value=${titleMarked} />
-          </div>
-          <div class="markdown-category">
-            <label for="category">Category: </label>
-            <input type="text" name="category" id="category" value=${categoryMarked} />
-          </div>
-          <div class="markdown-body">
-            <label for="body">Body: </label>
-            <textarea name="body" id="body">${bodyMarked}</textarea>
-          </div>
-    `;
-    titleText = document.getElementById("title");
-    categoryText = document.getElementById("category");
-    bodyText = document.getElementById("body");
-    e.target.textContent = "Previeuw the body";
-  }
-});
