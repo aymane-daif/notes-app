@@ -18,7 +18,7 @@ let categoryMarked;
 let notes = [];
 let categories = [];
 
-addBtn.addEventListener("click", (e) => {
+addBtn.addEventListener("click", () => {
   notesSection.classList.add("all-notes");
   notesContent = document.querySelector(".notes.all-notes .notes-content");
   countNotes = document.querySelector(".all-notes h1");
